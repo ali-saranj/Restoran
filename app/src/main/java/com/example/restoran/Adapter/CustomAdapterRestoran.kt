@@ -1,22 +1,27 @@
 package com.example.restoran.Adapter
 
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.restoran.Fragment.ShowAllRestoranFragment
 import com.example.restoran.Model.Restaurant
 import com.example.restoran.R
 import com.squareup.picasso.Picasso
 
-class CustomAdapterRestoran(private val dataSet: List<Restaurant>) :
+class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity: Activity) :
     RecyclerView.Adapter<CustomAdapterRestoran.ViewHolder>() {
 
     /**
@@ -30,6 +35,7 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>) :
           var tv_time_work: TextView
           var ranting: RatingBar
           var img_top_bottom: ImageView
+          var btn_call: CardView
 
         init {
             // Define click listener for the ViewHolder's View
@@ -39,6 +45,7 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>) :
             ranting = view.findViewById(R.id.ratingBar)
             tv_time_work = view.findViewById(R.id.tv_time_work)
             img_top_bottom = view.findViewById(R.id.img_top_bottom)
+            btn_call = view.findViewById(R.id.btn_call)
         }
     }
 
@@ -72,6 +79,15 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>) :
             }else{
                 viewHolder.tv_Description.maxLines = 5
                 viewHolder.img_top_bottom.setImageResource(R.drawable.top)
+            }
+        }
+
+        viewHolder.btn_call.setOnClickListener {
+            it.startAnimation(AnimationUtils.loadAnimation(it.context,android.R.anim.fade_in))
+            if (ContextCompat.checkSelfPermission(it.context,android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.CALL_PHONE), 1)
+            } else {
+                it.context.startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:${dataSet[position].phone}")))
             }
         }
 

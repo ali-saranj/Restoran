@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         var fragments = ArrayList<Fragment>()
         fragments.add(MapsFragment(this))
-        fragments.add(ShowAllRestoranFragment())
+        fragments.add(ShowAllRestoranFragment(this))
 
         binding.viewpager.adapter = AdapterFragmet(
             supportFragmentManager,
