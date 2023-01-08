@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/loginuser"
+        android:checked="true"
+        android:color="@color/home"
+        android:icon="@drawable/ic_baseline_login_24"
+        android:title="ورود" />
+    <item
+        android:id="@+id/adduser"
+        android:color="@color/home"
+        android:icon="@drawable/ic_baseline_person_add_alt_24"
+        android:title="ثبت نام" />
+
+</menu>

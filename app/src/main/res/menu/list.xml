@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/gps"
+        android:icon="@drawable/ic_baseline_explore_24"
+        android:title="مکان"
+        android:checked="true"
+        android:color="@color/home"/>
+
+    <item
+        android:id="@+id/restoran"
+        android:icon="@drawable/ic_baseline_restaurant_24"
+        android:title="اطراف من"
+        android:color="@color/home"/>
+</menu>
