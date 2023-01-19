@@ -9,7 +9,7 @@ class Restaurant(
     val longitude: Double,
     val name: String,
     val phone: String,
-    val rating: Int,
+    val rating: Float,
     val timeWork: String
 ){
     fun get_imageUrls():List<String>{

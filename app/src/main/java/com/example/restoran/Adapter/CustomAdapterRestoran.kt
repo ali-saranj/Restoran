@@ -16,9 +16,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.restoran.Activity.RestoranActivity
 import com.example.restoran.Fragment.ShowAllRestoranFragment
 import com.example.restoran.Model.Restaurant
 import com.example.restoran.R
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 
 class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity: Activity) :
@@ -36,6 +38,8 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity:
           var ranting: RatingBar
           var img_top_bottom: ImageView
           var btn_call: CardView
+          var card_restoran: CardView
+
 
         init {
             // Define click listener for the ViewHolder's View
@@ -46,6 +50,7 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity:
             tv_time_work = view.findViewById(R.id.tv_time_work)
             img_top_bottom = view.findViewById(R.id.img_top_bottom)
             btn_call = view.findViewById(R.id.btn_call)
+            card_restoran = view.findViewById(R.id.card_restoran)
         }
     }
 
@@ -72,12 +77,12 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity:
 
         viewHolder.img_top_bottom.setOnClickListener {
             it.startAnimation(AnimationUtils.loadAnimation(it.context,android.R.anim.fade_in))
-            if (viewHolder.tv_Description.maxLines==5)
+            if (viewHolder.tv_Description.maxLines==10)
             {
                 viewHolder.tv_Description.maxLines = 2
                 viewHolder.img_top_bottom.setImageResource(R.drawable.bottom)
             }else{
-                viewHolder.tv_Description.maxLines = 5
+                viewHolder.tv_Description.maxLines = 10
                 viewHolder.img_top_bottom.setImageResource(R.drawable.top)
             }
         }
@@ -89,6 +94,11 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity:
             } else {
                 it.context.startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:${dataSet[position].phone}")))
             }
+        }
+
+        viewHolder.card_restoran.setOnClickListener {
+            var gson = Gson()
+            activity.startActivity(Intent(viewHolder.card_restoran.context,RestoranActivity::class.java).putExtra("restoran",gson.toJson(dataSet[position])))
         }
 
     }

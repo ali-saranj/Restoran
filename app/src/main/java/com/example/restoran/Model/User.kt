@@ -7,4 +7,8 @@ data class User(
     val userName: String,
     val passWord: String,
     val phone: String
-)
+){
+    companion object{
+        var User: User? =null
+    }
+}

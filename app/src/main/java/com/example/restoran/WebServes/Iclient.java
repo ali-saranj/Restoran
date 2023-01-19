@@ -1,6 +1,8 @@
 package com.example.restoran.WebServes;
 
+import com.example.restoran.Model.Comment;
 import com.example.restoran.Model.Restaurant;
+import com.example.restoran.Model.RsaultComment;
 import com.example.restoran.Model.RsaultUser;
 import com.example.restoran.Model.User;
 
@@ -21,4 +23,10 @@ public interface Iclient {
 
     @GET("loginUser/{username},{password}")
     Call<RsaultUser> loginUser(@Path("username") String username,@Path("password") String password);
+
+    @GET("showComment/{id}")
+    Call<List<Comment>> getComments(@Path("id")int id);
+
+    @POST("addComment")
+    Call<RsaultComment> addComment(@Body Comment comment);
 }

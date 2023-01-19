@@ -71,6 +71,7 @@ class AddUserFragment(var activity: Activity): Fragment() {
                             Log.e("re",response.body().toString())
                             if (response.body()?.status.equals("OK")) {
                                 binding.progress.visibility = INVISIBLE
+                                User.User = response.body()?.any?.User
                                 activity.startActivity(Intent(activity, MainActivity::class.java))
                                 activity.finish()
                             } else {

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.example.restoran.Activity.MainActivity
 import com.example.restoran.Model.RsaultUser
+import com.example.restoran.Model.User
 import com.example.restoran.R
 import com.example.restoran.WebServes.Client
 import com.example.restoran.WebServes.Iclient
@@ -54,6 +55,7 @@ class LoginUserFragment(var activity: Activity) : Fragment() {
                                 if (response.body()?.status.equals("OK")) {
                                     binding.progress.visibility=View.INVISIBLE
                                     activity.startActivity(Intent(activity, MainActivity::class.java))
+                                    User.User = response.body()?.any?.User
                                     activity.finish()
                                 } else if (response.body()?.erorr.equals("user is not exist")) {
                                     binding.progress.visibility=View.INVISIBLE
