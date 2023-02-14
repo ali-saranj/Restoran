@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -54,6 +55,15 @@ class CustomAdapterImage(private val dataSet: List<String>, val activity: Activi
 
         Picasso.get().load(dataSet[position]).into(viewHolder.img)
 
+        viewHolder.img.setOnClickListener {
+            var img = ImageView(activity)
+            img.translationZ = 90f
+            img.setImageDrawable(viewHolder.img.drawable)
+            AlertDialog.Builder(activity)
+                .setView(img)
+                .create()
+                .show()
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

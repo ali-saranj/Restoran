@@ -1,6 +1,7 @@
 package com.example.restoran.Adapter
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -38,6 +40,7 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity:
           var ranting: RatingBar
           var img_top_bottom: ImageView
           var btn_call: CardView
+          var btn_gps: CardView
           var card_restoran: CardView
 
 
@@ -50,6 +53,7 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity:
             tv_time_work = view.findViewById(R.id.tv_time_work)
             img_top_bottom = view.findViewById(R.id.img_top_bottom)
             btn_call = view.findViewById(R.id.btn_call)
+            btn_gps = view.findViewById(R.id.btn_gps)
             card_restoran = view.findViewById(R.id.card_restoran)
         }
     }
@@ -93,6 +97,20 @@ class CustomAdapterRestoran(private val dataSet: List<Restaurant>, val activity:
                 ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.CALL_PHONE), 1)
             } else {
                 it.context.startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:${dataSet[position].phone}")))
+            }
+        }
+
+        viewHolder.btn_gps.setOnClickListener {
+            it.startAnimation(AnimationUtils.loadAnimation(it.context,android.R.anim.fade_in))
+            try {
+                val myIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/@${dataSet[position].latitude},${dataSet[position].longitude},16.02z"))
+                activity.startActivity(myIntent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    activity, "No application can handle this request."
+                            + " Please install a webbrowser", Toast.LENGTH_LONG
+                ).show()
+                e.printStackTrace()
             }
         }
 

@@ -1,12 +1,19 @@
 package com.example.restoran.Activity
 
+import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.DialogInterface.OnClickListener
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
@@ -77,6 +84,28 @@ class RestoranActivity : AppCompatActivity() {
                 })
                 .create()
                 .show()
+        }
+
+        binding.btnRestoranCall.setOnClickListener {
+            it.startAnimation(AnimationUtils.loadAnimation(it.context,android.R.anim.fade_in))
+            if (ContextCompat.checkSelfPermission(it.context,android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), 1)
+            } else {
+                it.context.startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:${restoran.phone}")))
+            }
+        }
+
+        binding.btnRestoranGps.setOnClickListener {
+            try {
+                val myIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/@${restoran.latitude},${restoran.longitude},16.02z"))
+                startActivity(myIntent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    this, "No application can handle this request."
+                            + " Please install a webbrowser", Toast.LENGTH_LONG
+                ).show()
+                e.printStackTrace()
+            }
         }
     }
 
