@@ -18,11 +18,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import com.example.restoran.Adapter.CustomAdapterComent
+import com.example.restoran.Adapter.CustomAdapterFood
 import com.example.restoran.Adapter.CustomAdapterImage
-import com.example.restoran.Model.Comment
-import com.example.restoran.Model.Restaurant
-import com.example.restoran.Model.RsaultComment
-import com.example.restoran.Model.User
+import com.example.restoran.Model.*
 import com.example.restoran.WebServes.Client
 import com.example.restoran.WebServes.Iclient
 import com.example.restoran.databinding.ActivityRestoranBinding
@@ -35,6 +33,10 @@ import retrofit2.Response
 class RestoranActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityRestoranBinding
+
+    companion object{
+        var many = 0.0
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRestoranBinding.inflate(layoutInflater)
@@ -47,8 +49,10 @@ class RestoranActivity : AppCompatActivity() {
 
         binding.restoranListComent.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         binding.restoranListImage.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
+        binding.restoranListFood.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
 
         getComments(restoran)
+        getFoods(restoran)
 
         binding.restoranListImage.adapter = CustomAdapterImage(restoran.get_imageUrls(), this)
 
@@ -127,6 +131,21 @@ class RestoranActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
             }
+        })
+    }
+
+    fun getFoods(restaurant: Restaurant){
+        val Iclient = Client.getClient().create(Iclient::class.java)
+
+        Iclient.getFoods(restaurant.id).enqueue(object : Callback<List<Food>> {
+            override fun onResponse(call: Call<List<Food>>, response: Response<List<Food>>) {
+                binding.restoranListFood.adapter = CustomAdapterFood(response.body()!!,this@RestoranActivity,binding.tvRestoranMony)
+            }
+
+            override fun onFailure(call: Call<List<Food>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
         })
     }
 

@@ -1,6 +1,7 @@
 package com.example.restoran.WebServes;
 
 import com.example.restoran.Model.Comment;
+import com.example.restoran.Model.Food;
 import com.example.restoran.Model.Restaurant;
 import com.example.restoran.Model.RsaultComment;
 import com.example.restoran.Model.RsaultUser;
@@ -29,4 +30,7 @@ public interface Iclient {
 
     @POST("addComment")
     Call<RsaultComment> addComment(@Body Comment comment);
+
+    @GET("showFoodRestaurant/{id}")
+    Call<List<Food>> getFoods(@Path("id")int id);
 }

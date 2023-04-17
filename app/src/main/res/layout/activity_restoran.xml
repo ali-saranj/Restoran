@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,8 +17,6 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".Activity.RestoranActivity">
@@ -133,6 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/restoran_tv_description" />
@@ -141,32 +142,104 @@
                     android:id="@+id/tv_coment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:layout_margin="8dp"
-                    android:textColor="@color/black"
                     android:fontFamily="@font/iransans"
+                    android:text="نظرات"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/restoran_list_image"
-                    android:text="نظرات"/>
+                    app:layout_constraintTop_toBottomOf="@id/restoran_list_image" />
 
                 <ImageView
                     android:id="@+id/restoran_add_coment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_input_add"
-                    app:layout_constraintTop_toTopOf="@id/tv_coment"
                     app:layout_constraintBottom_toBottomOf="@id/tv_coment"
-                    app:layout_constraintRight_toLeftOf="@id/tv_coment"/>
+                    app:layout_constraintRight_toLeftOf="@id/tv_coment"
+                    app:layout_constraintTop_toTopOf="@id/tv_coment" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/restoran_list_coment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foregroundGravity="right"
                     android:layout_marginTop="8dp"
+                    android:foregroundGravity="right"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_coment" />
+
+                <TextView
+                    android:id="@+id/tv_food"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/iransans"
+                    android:text="منو"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/restoran_list_coment" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/restoran_list_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:foregroundGravity="right"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_food" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/home"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/restoran_list_food" />
+
+                <TextView
+                    android:id="@+id/tv_restoran_mony"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/iransans"
+                    android:text="0.0"
+                    android:textColor="@color/home"
+                    android:textSize="22sp"
+                    app:layout_constraintTop_toBottomOf="@id/view"
+                    app:layout_constraintLeft_toRightOf="@id/tv_toman"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_toman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/iransans"
+                    android:text=" تومان"
+                    android:textColor="@color/home"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_restoran_mony"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/tv_restoran_mony"
+                    app:layout_constraintTop_toTopOf="@id/tv_restoran_mony" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/iransans"
+                    android:text="ارسال درخواست"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_toman"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
